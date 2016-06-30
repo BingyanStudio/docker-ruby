@@ -1,0 +1,20 @@
+services: docker
+language: bash
+
+env:
+  global:
+    - IMAGE_PREFIX=${IMAGE_PREFIX:-$DOCKER_USER/}
+    - PUSH_LIST=/tmp/push_list
+    - IMAGE_NAME=ruby
+  matrix:
+    - SUBDIR=2.4 TAGS="latest"
+    - SUBDIR=2.3
+    - SUBDIR=2.2
+
+script:
+  - ./build.sh
+
+after_script:
+  - docker images
+  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" -e "$DOCKER_EMAIL"
+  - for x in $(cat "$PUSH_LIST"); do docker push $x; done
