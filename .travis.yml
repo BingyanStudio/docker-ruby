@@ -7,8 +7,7 @@ env:
     - PUSH_LIST=/tmp/push_list
     - IMAGE_NAME=ruby
   matrix:
-    - SUBDIR=2.4 TAGS="latest"
-    - SUBDIR=2.3
+    - SUBDIR=2.3 TAGS="latest"
     - SUBDIR=2.2
 
 script:
